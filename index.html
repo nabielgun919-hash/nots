@@ -98,7 +98,6 @@
     <path d="M88 128 Q100 140 112 128" fill="none" stroke="#4a2c3a" stroke-width="4" stroke-linecap="round"/>
   </svg>
 
-  <button id="again" type="button">Give me another note</button>
 
 <script>
   // ✏️ EDIT YOUR NOTES HERE.
@@ -117,21 +116,29 @@
   ];
 
   const noteEl = document.getElementById("note");
-  let last = -1;
 
-  function showNote() {
-    let i;
+  // The note stays the same while this tab is open (even if refreshed).
+  // Closing the page and scanning the QR again picks a new note.
+  // A new note is never the same as the one this device saw last time.
+  let i = -1;
+  try {
+    const current = parseInt(sessionStorage.getItem("currentNote"), 10);
+    if (!isNaN(current) && current >= 0 && current < NOTES.length) i = current;
+  } catch (e) {}
+
+  if (i === -1) {
+    let last = -1;
+    try { last = parseInt(localStorage.getItem("lastNote"), 10); if (isNaN(last)) last = -1; } catch (e) {}
     do { i = Math.floor(Math.random() * NOTES.length); }
     while (NOTES.length > 1 && i === last);
-    last = i;
-    noteEl.textContent = NOTES[i];
-    noteEl.classList.remove("pop");
-    void noteEl.offsetWidth;
-    noteEl.classList.add("pop");
+    try {
+      sessionStorage.setItem("currentNote", i);
+      localStorage.setItem("lastNote", i);
+    } catch (e) {}
   }
 
-  document.getElementById("again").addEventListener("click", showNote);
-  showNote();
+  noteEl.textContent = NOTES[i];
+  noteEl.classList.add("pop");
 </script>
 </body>
 </html>
