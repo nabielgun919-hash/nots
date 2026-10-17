@@ -181,24 +181,36 @@ body::before {
   transform: rotate(4deg);
 }
 .shop {
-  margin: 26px 0 0;
+  margin: 28px 0 0;
   text-align: center;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
 .shop a {
-  display: inline-block;
-  margin-top: 4px;
-  padding: 7px 16px;
-  color: var(--pink-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 14px 28px;
+  color: #fff;
+  font-size: 17px;
   font-weight: 700;
   text-decoration: none;
-  background: rgba(255,255,255,.6);
-  border: 1px solid rgba(185,103,120,.34);
+  background: linear-gradient(180deg, #e98095, var(--pink-deep));
+  border: 2px solid #fff6ed;
   border-radius: 999px;
+  box-shadow: 0 5px 0 #8f4859, 0 12px 22px rgba(111,66,67,.25);
+  transition: transform .12s ease, box-shadow .12s ease;
 }
-.shop a:focus-visible { outline: 2px solid var(--pink-deep); outline-offset: 3px; }
+.shop a:hover { transform: translateY(-1px); }
+.shop a:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 #8f4859, 0 4px 10px rgba(111,66,67,.25);
+}
+.shop a:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.shop .arrow { font-size: 20px; line-height: 1; }
+@media (prefers-reduced-motion: reduce) { .shop a { transition: none; } }
 @keyframes appear {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -235,7 +247,7 @@ body::before {
     <div class="flower-note">Good things<br>take time.</div>
   </div>
 
-  <p class="shop">Find me on Etsy<br><a href="https://www.etsy.com/shop/TheOverthinkerClubs" target="_blank" rel="noopener">♡ TheOverthinkerClubs</a></p>
+  <p class="shop">Find me on Etsy<br><a href="https://www.etsy.com/shop/TheOverthinkerClubs?ref=seller-platform-mcnav" target="_blank" rel="noopener">♡ TheOverthinkerClubs <span class="arrow" aria-hidden="true">›</span></a></p>
 </main>
 <script src="notes.js"></script>
 <script>
