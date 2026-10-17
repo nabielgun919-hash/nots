@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A little note for you</title>
+<style>
+  :root {
+    --bg: #ffe9ef;
+    --ink: #4a2c3a;
+    --bubble: #ffffff;
+    --accent: #ff7aa8;
+    --accent-dark: #d94f84;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .bubble {
+    position: relative;
+    background: var(--bubble);
+    border: 3px solid var(--ink);
+    border-radius: 28px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    line-height: 1.45;
+    font-weight: 600;
+  }
+  .bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    width: 30px; height: 30px;
+    background: var(--bubble);
+    border-right: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    transform: translateX(-50%) rotate(45deg);
+    border-bottom-right-radius: 6px;
+  }
+  .girl { width: 190px; margin-top: 8px; }
+  button {
+    margin-top: 18px;
+    background: var(--accent);
+    color: #fff;
+    border: 3px solid var(--ink);
+    border-radius: 999px;
+    padding: 14px 26px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button:active { background: var(--accent-dark); transform: translateY(1px); }
+  button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  #note.pop { animation: pop .35s ease-out; }
+  @keyframes pop { from { transform: scale(.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { #note.pop { animation: none; } }
+</style>
+</head>
+<body>
+
+  <div class="bubble"><span id="note"></span></div>
+
+  <svg class="girl" viewBox="0 0 200 220" role="img" aria-label="A cute girl smiling">
+    <!-- hair back -->
+    <path d="M40 100 C30 20 170 20 160 100 L160 150 C160 170 140 170 140 150 L60 150 C60 170 40 170 40 150 Z" fill="#5b3a29" stroke="#4a2c3a" stroke-width="4"/>
+    <!-- body -->
+    <path d="M55 215 C55 170 145 170 145 215 Z" fill="#ff7aa8" stroke="#4a2c3a" stroke-width="4"/>
+    <!-- face -->
+    <circle cx="100" cy="105" r="52" fill="#ffe0cc" stroke="#4a2c3a" stroke-width="4"/>
+    <!-- fringe -->
+    <path d="M50 95 C60 50 140 50 150 95 C130 78 100 70 50 95 Z" fill="#5b3a29" stroke="#4a2c3a" stroke-width="4" stroke-linejoin="round"/>
+    <!-- eyes -->
+    <circle cx="80" cy="108" r="6" fill="#4a2c3a"/>
+    <circle cx="120" cy="108" r="6" fill="#4a2c3a"/>
+    <circle cx="82" cy="106" r="2" fill="#fff"/>
+    <circle cx="122" cy="106" r="2" fill="#fff"/>
+    <!-- cheeks -->
+    <circle cx="66" cy="124" r="8" fill="#ff9db8" opacity=".7"/>
+    <circle cx="134" cy="124" r="8" fill="#ff9db8" opacity=".7"/>
+    <!-- smile -->
+    <path d="M88 128 Q100 140 112 128" fill="none" stroke="#4a2c3a" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <button id="again" type="button">Give me another note</button>
+
+<script>
+  // ✏️ EDIT YOUR NOTES HERE.
+  // One note per line, inside quotes, ending with a comma.
+  const NOTES = [
+    "You are doing better than you think.",
+    "Drink some water. Your brain says thanks.",
+    "Not every thought needs a meeting.",
+    "Be gentle with yourself today.",
+    "Small steps still count as steps.",
+    "Someone out there is glad you exist.",
+    "You don't have to figure it all out tonight.",
+    "Take a deep breath. Now stretch your shoulders.",
+    "Rest is productive too.",
+    "Today is a good day to be kind to yourself."
+  ];
+
+  const noteEl = document.getElementById("note");
+  let last = -1;
+
+  function showNote() {
+    let i;
+    do { i = Math.floor(Math.random() * NOTES.length); }
+    while (NOTES.length > 1 && i === last);
+    last = i;
+    noteEl.textContent = NOTES[i];
+    noteEl.classList.remove("pop");
+    void noteEl.offsetWidth;
+    noteEl.classList.add("pop");
+  }
+
+  document.getElementById("again").addEventListener("click", showNote);
+  showNote();
+</script>
+</body>
+</html>
